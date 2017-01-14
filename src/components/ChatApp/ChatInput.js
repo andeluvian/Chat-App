@@ -1,45 +1,45 @@
-
-import React, { Component } from 'react';
-import { Router, Route, Link, hashHistory } from 'react-router'
-
+import React, {Component} from 'react';
+import {Router, Route, Link, hashHistory} from 'react-router'
 
 class ChatInput extends Component {
   constructor(props) {
-      super(props);
-      // Set initial state of the chatInput so that it is not undefined
-      this.state = { chatInput: '' };
+    super(props);
+    this.state = { chatInput: '' };
 
-      // React ES6 does not bind 'this' to event handlers by default
-      this.submitHandler = this.submitHandler.bind(this);
-      this.textChangeHandler = this.textChangeHandler.bind(this);
-    }
+    // React ES6 does not bind 'this' to event handlers by default
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
 
+  handleSubmit(event) {
+    // Stop the form from refreshing the page on submit
+    event.preventDefault();
 
-  textChangeHandler(event)  {
-     this.setState({ chatInput: event.target.value });
-   }
+    // Clear the input box
+    this.setState({ chatInput: '' });
 
-   submitHandler(event) {
-   // Stop the form from refreshing the page on submit
-   event.preventDefault();
+    // Call the onSend callback with the chatInput message
+    this.props.onSend(this.state.chatInput);
+  }
 
-   // Call the onSend callback with the chatInput message
-   this.props.onSend(this.state.chatInput);
+  handleChange(event)  {
+    this.setState({ chatInput: event.target.value });
+  }
 
-   // Clear the input box
-   this.setState({ chatInput: '' });
- }
-render() {
-   return (
-     <form className="chat-input" onSubmit={this.submitHandler}>
-       <input type="text"
-         onChange={this.textChangeHandler}
-         value={this.state.chatInput}
-         placeholder="Write a message..."
-         required />
-     </form>
-   );
- }
+  render() {
+    return (
+      <form className="chat-input" onSubmit={this.handleSubmit}>
+        <input type="text"
+          onChange={this.handleChange}
+          value={this.state.chatInput}
+          placeholder="Write something..."
+          required />
+      </form>
+    );
+  }
 }
+
+ChatInput.defaultProps = {
+};
 
 export default ChatInput;

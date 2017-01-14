@@ -1,26 +1,29 @@
-
-
-import React, { Component } from 'react';
-import { Router, Route, Link, hashHistory } from 'react-router';
+import React, {Component} from 'react';
+import {Router, Route, Link, hashHistory} from 'react-router';
 
 
 class Message extends Component {
+  render() {
+    // Was the message sent by the current user. If so, add a css class
+    const myMessage = this.props.myMessage ? 'myMessage' : '';
 
+    return (
+      <div className={`message ${myMessage}`}>
+        <div className='username'>
+          { this.props.username }
+        </div>
+        <div className='message-body'>
+          { this.props.message }
+        </div>
+      </div>
+    );
+  }
+}
 
-render() {
-   // Was the message sent by the current user. If so, add a css class
-   const fromMe = this.props.fromMe ? 'from-me' : '';
+Message.defaultProps = {
+  message: '',
+  username: '',
+  myMessage: false
+};
 
-   return (
-     <div className={`message ${fromMe}`}>
-       <div className='username'>
-         { this.props.username }
-       </div>
-       <div className='message-body'>
-         { this.props.message }
-       </div>
-     </div>
-   );
- } }
-
- export default Message;
+export default Message;

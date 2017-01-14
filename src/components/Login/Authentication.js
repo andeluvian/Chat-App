@@ -1,47 +1,45 @@
-
-import React, { Component } from 'react';
-import { Router, Route, Link, hashHistory } from 'react-router';
+import React, {Component} from 'react';
+import {Router, Route, Link, hashHistory} from 'react-router';
 import ChatApp from '../ChatApp/ChatApp';
+require('../../styles/Authentication.css');
+require('../../styles/Login.css');
+
 
 class Authentication extends Component {
-
   constructor(props) {
-      super(props);
-      // set the initial state of the application
-      this.state = { username: '' };
+    super(props);
+    this.state = { username: '' };
 
-      // bind the 'this' keyword to the event handlers
-      this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
-      this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
-    }
+    // Bind 'this' to event handlers. React ES6 does not do this by default
+    this.changeUser = this.changeUser.bind(this);
+    this.submitUsername = this.submitUsername.bind(this);
+  }
 
-
-  usernameChangeHandler(event) {
+  changeUser(event) {
     this.setState({ username: event.target.value });
   }
 
-  usernameSubmitHandler(event) {
+  submitUsername(event) {
     event.preventDefault();
     this.setState({ submitted: true, username: this.state.username });
   }
 
-
   render() {
     if (this.state.submitted) {
-          // Form was submitted, now show the main App
-          return (
-            <ChatApp username={this.state.username} />
-          );
-        }
+      // Form was submitted, now show the main view
+      return (
+        <ChatApp username={this.state.username} />
+      );
+    }
 
-
+    // Initial page load, show a simple login form
     return (
-      <form onSubmit={this.usernameSubmitHandler} className="username-container">
+      <form onSubmit={this.submitUsername} className="username-container">
         <h1>React Instant Chat</h1>
         <div>
           <input
             type="text"
-            onChange={this.usernameChangeHandler}
+            onChange={this.changeUser}
             placeholder="Enter a username..."
             required />
         </div>
@@ -49,6 +47,9 @@ class Authentication extends Component {
       </form>
     );
   }
+
 }
+Authentication.defaultProps = {
+};
 
 export default Authentication;
