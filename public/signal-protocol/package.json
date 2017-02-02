@@ -1,0 +1,101 @@
+{
+  "_args": [
+    [
+      "signal-protocol",
+      "/Users/forsken/Documents/Developer/React-Chat"
+    ]
+  ],
+  "_from": "signal-protocol@latest",
+  "_id": "signal-protocol@0.0.6",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/signal-protocol",
+  "_nodeVersion": "6.9.0",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/signal-protocol-0.0.6.tgz_1482088636791_0.18287419597618282"
+  },
+  "_npmUser": {
+    "email": "ffff@berkeley.edu",
+    "name": "elsehow"
+  },
+  "_npmVersion": "3.10.8",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "signal-protocol",
+    "raw": "signal-protocol",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/signal-protocol/-/signal-protocol-0.0.6.tgz",
+  "_shasum": "9fc08fc42487c21c04856f6c03ccec0fc1bbe662",
+  "_shrinkwrap": null,
+  "_spec": "signal-protocol",
+  "_where": "/Users/forsken/Documents/Developer/React-Chat",
+  "author": {
+    "name": "elsehow"
+  },
+  "bugs": {
+    "url": "https://github.com/elsehow/signal-protocol/issues"
+  },
+  "contributors": [
+    {
+      "name": "liliakai"
+    }
+  ],
+  "dependencies": {
+    "bytebuffer": "^3.5.5",
+    "long": "^3.1.0",
+    "node-webcrypto-ossl": "^1.0.15",
+    "protobufjs": "5.0.1",
+    "tiny-worker": "^1.1.7",
+    "webworkify": "^1.4.0"
+  },
+  "description": "the signal ratcheting forward secrecy protocol, for node and browsers",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-jscs": "^3.0.1",
+    "grunt-mocha-test": "^0.13.2",
+    "grunt-preen": "^1.0.0 ",
+    "grunt-saucelabs": "^9.0.0",
+    "mocha": "^3.2.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "9fc08fc42487c21c04856f6c03ccec0fc1bbe662",
+    "tarball": "https://registry.npmjs.org/signal-protocol/-/signal-protocol-0.0.6.tgz"
+  },
+  "gitHead": "780d1b5f76b3a1039030b65e1b0cf2bac53c3a4a",
+  "homepage": "https://github.com/elsehow/signal-protocol#readme",
+  "license": "GPL-3.0",
+  "main": "src/main.js",
+  "maintainers": [
+    {
+      "email": "ffff@berkeley.edu",
+      "name": "elsehow"
+    }
+  ],
+  "name": "signal-protocol",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elsehow/signal-protocol.git"
+  },
+  "scripts": {
+    "lint": "grunt jshint",
+    "test": "grunt test"
+  },
+  "version": "0.0.6"
+}
