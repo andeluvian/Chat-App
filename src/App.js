@@ -11,6 +11,10 @@ import Authentication from './components/Login/Authentication';
 import ChatApp from './components/ChatApp/ChatApp';
 
 class App extends Component {
+  componentWillMount() {
+    console.log(window.libsignal);
+  }
+
     render() {
         return (
 

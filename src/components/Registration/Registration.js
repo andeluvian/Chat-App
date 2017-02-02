@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
 
 class Registration extends Component {
+
+  constructor(props){
+super(props);
+
+this.submitReg=this.submitReg.bind(this);
+
+
+  }
 static defaultProps ={
 black : []
 
