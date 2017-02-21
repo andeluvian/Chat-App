@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {Router, Route, Link, hashHistory} from 'react-router';
 import ChatApp from '../ChatApp/ChatApp';
-
+import SignalProtocolStore from './InMemorySignalProtocolStore.js';
+//require('./InMemorySignalProtocolStore.js');
 require('../../styles/Authentication.css');
 require('../../styles/Login.css');
 
 var signal = window.libsignal;
 var KeyHelper = signal.KeyHelper;
+var store = new SignalProtocolStore();
+var keyId = 1;
 
 
 class Authentication extends Component {
@@ -35,29 +38,41 @@ class Authentication extends Component {
 
         var registrationId = KeyHelper.generateRegistrationId();
 
-        var keypair = KeyHelper.generateIdentityKeyPair().then(function(identityKeyPair){
-          console.log(identityKeyPair);
-          var int32 = new Uint8Array(identityKeyPair.pubKey);
-          var int23 = new Uint8Array(identityKeyPair.privKey);
-          console.log(int32);
-          console.log(int23);
+//          KeyHelper.generateIdentityKeyPair().then(function(identityKeyPair){
+//
+//           var int32 = new Uint8Array(identityKeyPair.pubKey);
+//           var int23 = new Uint8Array(identityKeyPair.privKey);
+//           console.log(int32);
+//           console.log(int23);
+// window.localStorage.setItem("public_key", identityKeyPair.pubKey)
+//     window.localStorage.setItem("private_key", identityKeyPair.privKey)
+//         });
+//
+//
+console.log(registrationId);
+
+        KeyHelper.generateIdentityKeyPair().then(function(identityKeyPair) {
+            // keyPair -> { pubKey: ArrayBuffer, privKey: ArrayBuffer }
+            // Store identityKeyPair somewhere durable and safe.
+            KeyHelper.generateSignedPreKey(identityKeyPair, keyId).then(function(signedPreKey) {
+
+
+                store.storeSignedPreKey(signedPreKey.keyId, signedPreKey.keyPair);
+console.log(signedPreKey);
+
+            });
+console.log(identityKeyPair);
+
         });
 
+        KeyHelper.generatePreKey(keyId).then(function(preKey) {
+            store.storePreKey(preKey.keyId, preKey.keyPair);
 
-console.log(registrationId);
-console.log(keypair);
-        // KeyHelper.generateIdentityKeyPair().then(function(identityKeyPair) {
-        //     // keyPair -> { pubKey: ArrayBuffer, privKey: ArrayBuffer }
-        //     // Store identityKeyPair somewhere durable and safe.
-        // });
-        //
-        // KeyHelper.generatePreKey(keyId).then(function(preKey) {
-        //     store.storePreKey(preKey.keyId, preKey.keyPair);
-        // });
-        //
-        // KeyHelper.generateSignedPreKey(identityKeyPair, keyId).then(function(signedPreKey) {
-        //     store.storeSignedPreKey(signedPreKey.keyId, signedPreKey.keyPair);
-        // });
+console.log(preKey);
+        });
+console.log(keyId);
+
+
 
       //  Register preKeys and signedPreKey with the server
 
