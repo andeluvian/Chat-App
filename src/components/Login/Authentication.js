@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
 import {Router, Route, Link, hashHistory} from 'react-router';
 import ChatApp from '../ChatApp/ChatApp';
-import SignalProtocolStore from './InMemorySignalProtocolStore.js';
-//require('./InMemorySignalProtocolStore.js');
+
 require('../../styles/Authentication.css');
 require('../../styles/Login.css');
 
 var signal = window.libsignal;
 var KeyHelper = signal.KeyHelper;
-var store = new SignalProtocolStore();
-var keyId = 1;
+let keyId = Math.floor((Math.random() * 10) + 0);
+
+
+
 
 
 class Authentication extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -23,7 +25,6 @@ class Authentication extends Component {
         this.changeUser = this.changeUser.bind(this);
         this.submitUsername = this.submitUsername.bind(this);
 
-
     }
 
     changeUser(e) {
@@ -33,50 +34,80 @@ class Authentication extends Component {
     submitUsername(e) {
         e.preventDefault();
         this.setState({submitted: true, username: this.state.username});
+        let registrationId = KeyHelper.generateRegistrationId()
+        localStorage.setItem('RegistrationId', registrationId)
+        localStorage.setItem('username', this.state.username)
 
 
 
-        var registrationId = KeyHelper.generateRegistrationId();
-
-//          KeyHelper.generateIdentityKeyPair().then(function(identityKeyPair){
-//
-//           var int32 = new Uint8Array(identityKeyPair.pubKey);
-//           var int23 = new Uint8Array(identityKeyPair.privKey);
-//           console.log(int32);
-//           console.log(int23);
-// window.localStorage.setItem("public_key", identityKeyPair.pubKey)
-//     window.localStorage.setItem("private_key", identityKeyPair.privKey)
-//         });
-//
-//
-console.log(registrationId);
-
-        KeyHelper.generateIdentityKeyPair().then(function(identityKeyPair) {
-            // keyPair -> { pubKey: ArrayBuffer, privKey: ArrayBuffer }
-            // Store identityKeyPair somewhere durable and safe.
-            KeyHelper.generateSignedPreKey(identityKeyPair, keyId).then(function(signedPreKey) {
 
 
-                store.storeSignedPreKey(signedPreKey.keyId, signedPreKey.keyPair);
-console.log(signedPreKey);
+     KeyHelper.generateIdentityKeyPair().then((identityKeyPair)=>{
+          var int32 = new Uint8Array(identityKeyPair.pubKey);
+          var int23 = new Uint8Array(identityKeyPair.privKey);
 
-            });
+        localStorage.setItem('pubKey', JSON.stringify(int32));
+        localStorage.setItem('privKey',JSON.stringify(int23));
+        });
+
+var arr1 =localStorage.getItem('privKey');
+var arr2 = localStorage.getItem('pubKey');
+var a1 = new Uint8Array(arr1);
+var a2 = new Uint8Array(arr2);
+
+let identityKeyPair ={
+pubKey: a2.buffer,
+privKey: a1.buffer
+
+};
+
 console.log(identityKeyPair);
 
-        });
-
-        KeyHelper.generatePreKey(keyId).then(function(preKey) {
-            store.storePreKey(preKey.keyId, preKey.keyPair);
-
-console.log(preKey);
-        });
-console.log(keyId);
-
-
-
-      //  Register preKeys and signedPreKey with the server
-
+// let storage = () =>{
+//
+// let preKey;
+//
+// let first = () =>{
+//
+// let registrationId = KeyHelper.generateRegistrationId()
+// localStorage.setItem('RegistrationId', registrationId)
+// localStorage.setItem('username', this.state.username)
+//
+// let second = () =>{
+//
+// let identityKeyPair = KeyHelper.generateIdentityKeyPair().then((identityKeyPair)=>{
+//   var int32 = new Uint8Array(identityKeyPair.pubKey);
+//   var int23 = new Uint8Array(identityKeyPair.privKey);
+//
+// localStorage.setItem('identityKeyPair',JSON.stringify({pubKey: int32, privKey: int23}));
+// });
+//
+// }
+//
+// let third = () =>{
+//
+//   let preKey = KeyHelper.generatePreKey(keyId).then(function(preKey) {
+//       localStorage.setItem('preKey', JSON.stringify({keyId: preKey.keyId, keyPair: preKey.keyPair}));
+//   });
+//
+// }
+// let fourth =() =>{
+// let identityKeyPair = JSON.parse(localStorage.getItem('identityKeyPair'))
+//
+// let signedPreKey = KeyHelper.generateSignedPreKey(identityKeyPair, keyId).then(function(signedPreKey) {
+//
+//   localStorage.setItem('signedPreKey', JSON.stringify({keyId: signedPreKey.keyId, keyPair: signedPreKey.keyPair}));
+//
+// });
+// }
+//
+//
+// }      }
     }
+
+    componentWillMount() {}
+
+    componentDidMount() {}
 
     render() {
         if (this.state.submitted) {
@@ -87,7 +118,7 @@ console.log(keyId);
         // Initial page load, show a simple login form
         return (
             <form onSubmit={this.submitUsername} className="username-container">
-                <h1>React Instant Chat</h1>
+                <h1>Instant Chat Login</h1>
                 <div>
                     <input type="text" onChange={this.changeUser} placeholder="Enter a username..." required/>
                 </div>
