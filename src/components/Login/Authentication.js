@@ -24,6 +24,8 @@ class Authentication extends Component {
         // Bind 'this' to event handlers. React ES6 does not do this by default
         this.changeUser = this.changeUser.bind(this);
         this.submitUsername = this.submitUsername.bind(this);
+        //aishu
+        //localStorage.getIdentityKeyPair = function(){return 'sunil'};
 
     }
 
