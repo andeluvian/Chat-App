@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Router, Route, Link, hashHistory} from 'react-router'
 var signal = window.libsignal;
+var KeyHelper = signal.KeyHelper;
 
 class ChatInput extends Component {
     constructor(props) {
@@ -22,9 +23,10 @@ class ChatInput extends Component {
         this.setState({chatInput: ''});
 
         // Call the onSend callback with the chatInput message
-        console.log(localStorage.getItem("pubKey"));
+        console.log('key:'+localStorage.getItem("pubKey"));
 
         var plaintext = this.state.chatInput;
+
         console.log(localStorage);
         var sessionCipher = new signal.SessionCipher(localStorage, 1);
         sessionCipher.encrypt(plaintext).then(function(ciphertext) {

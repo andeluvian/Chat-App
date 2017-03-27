@@ -50,7 +50,7 @@ class ChatApp extends Component {
     render() {
         return (
             <div className="container">
-                <h3>Chat App</h3>
+                <h3>React Chat App</h3>
                 <Messages messages={this.state.messages}/>
                 <ChatInput onSend={this.sendHandler}/>
             </div>
